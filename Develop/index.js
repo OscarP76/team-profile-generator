@@ -5,15 +5,13 @@ const engineer = require('./classes/engineer')
 const manager = require('./classes/manager')
 const Choices = require('inquirer/lib/objects/choices')
 
-var team = []
+var team = [{name: 'Daniel'}, {name: 'Jackson'}]
+
+console.log('Making html from other file', generateHtml(team))
 
 function init() {
     console.log('starting application');
-    inquirer.prompt(newManager()).then((answers) => {
-        generateEmployee(answers);
-        writeToFile('', generateHtml(this.employee, answers))
-    })
-    
+    newManager()
 }
 
 init()
@@ -51,7 +49,7 @@ function newManager() {
         }
     ]).then(function (answers) {
         console.log('answer', answers)
-        var manager = new manager(answers.id, answers.firtsName, answers.email, answers.officeNumber)
+        var manager = new manager(answers.id, answers.firstName, answers.email, answers.officeNumber)
         team.push(manager)
         console.log('new class we just made!', manager)
         generateEmployee()
@@ -82,7 +80,7 @@ function newIntern() {
         }
     ]).then(function (answers) {
         console.log('answer', answers)
-        var intern = new intern(answers.id, answers.firtsName, answers.email, answers.school)
+        var intern = new intern(answers.id, answers.firstName, answers.email, answers.school)
         team.push(intern)
         console.log('new class we just made!', intern)
         generateEmployee()
@@ -113,7 +111,7 @@ function newEngineer() {
         }
     ]).then(function (answers) {
         console.log('answer', answers)
-        var engineer = new engineer(answers.id, answers.firtsName, answers.email, answers.github)
+        var engineer = new engineer(answers.id, answers.firstName, answers.email, answers.github)
         team.push(engineer)
         console.log('new class we just made!', engineer)
         generateEmployee()
@@ -142,6 +140,40 @@ function generateEmployee() {
         }
         
     })
+}
+
+function addAnother() {
+    inquirer.prompt([
+        {
+            name: 'addAnother',
+            type: 'confirm',
+            message: 'Would you like to add more employees?!'
+        },
+    ]).then(function(answer) {
+        if (answer.addAnother === true) {
+            generateEmployee()
+        } else {
+            console.log('time to start html!')
+        }
+
+        
+    })
+}
+
+function repeatQuestions() {
+    inquirer.prompt([
+        {
+            name: 'employee',
+            type: 'choice',
+            message: 'What position would you like to add',
+            Choices: ['intern', 'engineer', 'manager', 'none']
+        },
+    ]).then((response) => {
+        if (response.generateEmployee === repeatQuestions) {
+            repeatQuestions()
+        }
+    })
+    
 }
 
 // 3. Make the html with the answers from those questions

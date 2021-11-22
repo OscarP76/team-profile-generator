@@ -1,4 +1,7 @@
+
+
 function generateHtml(team) {
+
     var cards = []
 
     for (let i = 0; i < team.length; i++) {
@@ -23,6 +26,8 @@ function generateHtml(team) {
     </body>
     </html>
     `
-    
+
     return mainHtml
 }
+
+module.exports = generateHtml
