@@ -7,8 +7,17 @@ const Choices = require('inquirer/lib/objects/choices')
 
 var team = []
 
+function init() {
+    console.log('starting application');
+    inquirer.prompt(newManager()).then((answers) => {
+        generateEmployee(answers);
+        writeToFile('', generateHtml(this.employee, answers))
+    })
+    
+}
 
-// console.log('Making html from other file', generateHtml(team))
+init()
+// ask all these questions with enquirer
 
 // 1. Make your classes
 
@@ -17,6 +26,37 @@ var team = []
 // then ask what employee type do u want. intern or engineer
 // looping on continuous until they say we are done adding ppl
 // make new classes with the answers from inquirer
+
+function newManager() {
+    inquirer.prompt([
+        {
+            name: 'firstName',
+            type: 'input',
+            message: 'What is your first name?'
+        },
+        {
+            name: 'email',
+            type: 'input',
+            message: 'What is your email?'
+        },
+        {
+            name: 'id',
+            type: 'input',
+            message: 'What is your id?'
+        },
+        {
+            name: 'officeNumber',
+            type: 'input',
+            message: 'What is your office number?'
+        }
+    ]).then(function (answers) {
+        console.log('answer', answers)
+        var manager = new manager(answers.id, answers.firtsName, answers.email, answers.officeNumber)
+        team.push(manager)
+        console.log('new class we just made!', manager)
+        generateEmployee()
+    })
+}
 
 function newIntern() {
     inquirer.prompt([
@@ -80,37 +120,6 @@ function newEngineer() {
     })
 }
 
-function newManager() {
-    inquirer.prompt([
-        {
-            name: 'firstName',
-            type: 'input',
-            message: 'What is your first name?'
-        },
-        {
-            name: 'email',
-            type: 'input',
-            message: 'What is your email?'
-        },
-        {
-            name: 'id',
-            type: 'input',
-            message: 'What is your id?'
-        },
-        {
-            name: 'officeNumber',
-            type: 'input',
-            message: 'What is your office number?'
-        }
-    ]).then(function (answers) {
-        console.log('answer', answers)
-        var manager = new manager(answers.id, answers.firtsName, answers.email, answers.officeNumber)
-        team.push(manager)
-        console.log('new class we just made!', manager)
-        generateEmployee()
-    })
-}
-
 function generateEmployee() {
     inquirer.prompt([
         {
@@ -131,13 +140,15 @@ function generateEmployee() {
                 }
             }
         }
-
+        
     })
 }
 
-
-
-
 // 3. Make the html with the answers from those questions
 
-// ask all these questions with enquirer
+function writeToFile(filename, data) {
+    fs.writeFile(filename, data, (err) => {
+        err ? console.error(`we had an error: ${err}`) : console.log('Success!!');
+    });
+    
+}
