@@ -1,13 +1,14 @@
 const generateHtml = require('./generateHtml')
 const inquirer = require('inquirer')
-const intern = require('./classes/intern')
-const engineer = require('./classes/engineer')
-const manager = require('./classes/manager')
+const Intern = require('./classes/intern')
+const Engineer = require('./classes/engineer')
+const Manager = require('./classes/manager')
 const Choices = require('inquirer/lib/objects/choices')
+const fs = require('fs')
 
-var team = [{name: 'Daniel'}, {name: 'Jackson'}]
+var team = []
 
-console.log('Making html from other file', generateHtml(team))
+// console.log('Making html from other file', generateHtml(team))
 
 function init() {
     console.log('starting application');
@@ -15,15 +16,6 @@ function init() {
 }
 
 init()
-// ask all these questions with enquirer
-
-// 1. Make your classes
-
-// 2. Ask all my questions
-// ask the manager question 1st
-// then ask what employee type do u want. intern or engineer
-// looping on continuous until they say we are done adding ppl
-// make new classes with the answers from inquirer
 
 function newManager() {
     inquirer.prompt([
@@ -49,7 +41,7 @@ function newManager() {
         }
     ]).then(function (answers) {
         console.log('answer', answers)
-        var manager = new manager(answers.id, answers.firstName, answers.email, answers.officeNumber)
+        var manager = new Manager(answers.id, answers.firstName, answers.email, answers.officeNumber)
         team.push(manager)
         console.log('new class we just made!', manager)
         generateEmployee()
@@ -80,7 +72,7 @@ function newIntern() {
         }
     ]).then(function (answers) {
         console.log('answer', answers)
-        var intern = new intern(answers.id, answers.firstName, answers.email, answers.school)
+        var intern = new Intern(answers.id, answers.firstName, answers.email, answers.school)
         team.push(intern)
         console.log('new class we just made!', intern)
         generateEmployee()
@@ -111,7 +103,7 @@ function newEngineer() {
         }
     ]).then(function (answers) {
         console.log('answer', answers)
-        var engineer = new engineer(answers.id, answers.firstName, answers.email, answers.github)
+        var engineer = new Engineer(answers.id, answers.firstName, answers.email, answers.github)
         team.push(engineer)
         console.log('new class we just made!', engineer)
         generateEmployee()
@@ -122,19 +114,22 @@ function generateEmployee() {
     inquirer.prompt([
         {
             name: 'employee',
-            type: 'choice',
+            type: 'list',
             message: 'What position would you like to add',
-            Choices: ['intern', 'engineer', 'manager', 'none']
+            choices: ['intern', 'engineer', 'none']
         },
     ]).then((response) => {
-        if (response.employee === intern) {
+        if (response.employee === 'intern') {
             newIntern()
         } else {
-            if (response.employee === engineer) {
+            if (response.employee === 'engineer') {
                 newEngineer()
             } else {
-                if (response.employee === manager) {
+                if (response.employee === 'manager') {
                     newManager()
+                }  else {
+                    console.log(team)
+                    fs.writeFileSync('index.html', generateHtml(team))
                 }
             }
         }
@@ -155,8 +150,6 @@ function addAnother() {
         } else {
             console.log('time to start html!')
         }
-
-        
     })
 }
 

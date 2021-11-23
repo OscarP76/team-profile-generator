@@ -6,7 +6,7 @@ test('whether or not we can instantiate a manager', () => {
 })
 
 test('testing the getOfficeNumber function', () => {
-    const getOfficeNumber = ''
-    const person = new manager(getOfficeNumber);
+    const getOfficeNumber = '2062'
+    const person = new manager(9, 'Ted', 't@t.com', getOfficeNumber);
     expect(person.getOfficeNumber()).toBe(getOfficeNumber);
 })

@@ -11,7 +11,7 @@ getGithub(){
 }
 
 getRole(){
-    return 'engineer';
+    return 'Engineer';
 }
 
 }

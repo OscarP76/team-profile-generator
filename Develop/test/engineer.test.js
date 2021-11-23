@@ -10,7 +10,7 @@ test('testing if we can assign a github page', () => {
 test('testing the getGitHub function', () => {
     const gitHub = 'johns github'
     const person = new engineer(2, 'John', 'john@john.com', gitHub);
-    expect(person.getGithub()).toBe(github);
+    expect(person.getGithub()).toBe(gitHub);
 })
 
 test('testing the getRole function', () => {
