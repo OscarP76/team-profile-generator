@@ -27,4 +27,4 @@ Developed and tested a team profile generator using the command line. made an ac
 ```
 ## My Links
 [Team profile Generator video]()
-[Github]()
+[Github](https://github.com/OscarP76/team-profile-generator)
