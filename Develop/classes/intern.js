@@ -11,7 +11,7 @@ getSchool(){
 }
 
 getRole(){
-    return 'Intern';
+    return 'intern';
 }
 
 }

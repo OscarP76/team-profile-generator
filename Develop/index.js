@@ -40,7 +40,7 @@ function newManager() {
             message: 'What is your office number?'
         }
     ]).then(function (answers) {
-        console.log('answer', answers)
+        
         var manager = new Manager(answers.id, answers.firstName, answers.email, answers.officeNumber)
         team.push(manager)
         console.log('new class we just made!', manager)
@@ -71,7 +71,7 @@ function newIntern() {
             message: 'What is your school?'
         }
     ]).then(function (answers) {
-        console.log('answer', answers)
+        
         var intern = new Intern(answers.id, answers.firstName, answers.email, answers.school)
         team.push(intern)
         console.log('new class we just made!', intern)
@@ -102,7 +102,7 @@ function newEngineer() {
             message: 'What is your github page?'
         }
     ]).then(function (answers) {
-        console.log('answer', answers)
+        
         var engineer = new Engineer(answers.id, answers.firstName, answers.email, answers.github)
         team.push(engineer)
         console.log('new class we just made!', engineer)
