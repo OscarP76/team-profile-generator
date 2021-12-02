@@ -26,5 +26,5 @@ Developed and tested a team profile generator using the command line. made an ac
 }
 ```
 ## My Links
-[Team profile Generator video]("C:\Users\bigop\Videos\2021-11-26 11-12-45.zip")
+<a href=" https://youtu.be/ScZMn_DhCvU">DemoVideo</a>
 [Github](https://github.com/OscarP76/team-profile-generator)
